@@ -9,9 +9,13 @@
 #ifndef dwarf_h
 #define dwarf_h
 
-class Dwarf::public Enemy(){
-    
-}
+#include "enemy.h"
+
+class Dwarf: public Enemy{
+public:
+    Dwarf();
+    string attack(Character *pc) override;
+};
 
 
 #endif /* dwarf_hpp */

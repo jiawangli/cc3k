@@ -14,7 +14,7 @@ int Character::getHp() const {
 void Character::setHp(int hp) {
 	this->hp = hp;
 }
-int Character::getMaxHP() const {
+int Character::getMaxHp() const {
 	return maxHp;
 }
 int Character::getAtk() const {
