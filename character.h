@@ -15,7 +15,7 @@ protected:
 public:
 	Character();
 	Character(int hp, int atk, int def);
-	virtual void attack(Character *ec) = 0;
+	virtual string attack(Character *ec) = 0;
 	string getType() const;
 	int getHp() const;
 	void setHp(int hp);

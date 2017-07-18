@@ -21,11 +21,11 @@ int Character::getAtk() const {
 	return atk;
 }
 int Character::setAtk(int atk) {
-	this->atk = atk;
+	return this->atk = atk;
 }
 int Character::getDef() const {
 	return def;
 }
 int Character::setDef(int def) {
-	this->def = def;
+	return this->def = def;
 }
