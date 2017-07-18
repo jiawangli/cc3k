@@ -11,7 +11,7 @@ protected:
 	int hp=0;
 	int atk=0;
 	int def=0;
-    int gold=0;
+    	int gold=0;
 	string type="unnamed";
 public:
 	Character();
