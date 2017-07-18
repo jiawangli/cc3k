@@ -75,3 +75,7 @@ void Floor::DisplayMap() {
     
 }
 
+
+http://www.upsbatterycenter.com/blog/history-batteries-timeline/
+http://fortune.com/2017/01/12/airlines-samsung-galaxy-note-7-warning/
+http://batteryuniversity.com/learn/archive/lithium_ion_safety_concerns
