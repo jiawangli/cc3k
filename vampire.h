@@ -16,7 +16,7 @@ class Vampire: public Player{
 public:
     Vampire();
     string attack(Character *ec) override;
-    void reset();
+    void reset() override;
 };
 
 

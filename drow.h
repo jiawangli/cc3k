@@ -16,7 +16,7 @@ class Drow: public Player{
 public:
     Drow();
     string attack(Character *ec) override;
-    void reset();
+    void reset() override;
 };
 
 #endif /* drow_hpp */

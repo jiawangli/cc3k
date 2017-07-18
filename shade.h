@@ -16,7 +16,7 @@ class Shade: public Player{
 public:
     Shade();
     string attack(Character *ec) override;
-    void reset();
+    void reset() override;
 };
 
 #endif /* shade_hpp */

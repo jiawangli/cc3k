@@ -16,7 +16,7 @@ class Goblin: public Player{
 public:
     Goblin();
     string attack(Character *ec) override;
-    void reset();
+    void reset() override;
 };
 
 #endif /* goblin_hpp */

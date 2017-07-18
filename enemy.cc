@@ -13,8 +13,4 @@ void Enemy::setHostile(bool hostile) {
 	this->hostile = hostile;
 }
 
-int Enemy::getGold() const {
-	return gold;
-}
-
 Enemy::~Enemy() {}

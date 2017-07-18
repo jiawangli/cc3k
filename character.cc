@@ -29,3 +29,9 @@ int Character::getDef() const {
 int Character::setDef(int def) {
 	return this->def = def;
 }
+void Character::addGold(int gold) {
+    this->gold += gold;
+}
+int Character::getGold() const{
+    return gold;
+}

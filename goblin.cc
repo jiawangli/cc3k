@@ -34,7 +34,7 @@ string Goblin::attack(Character *ec){
     }
     
     // other races
-    addGold(5);
+    addGold(5); // steal gold
     ec->setHp(newHp);
     ss << "PC deals " << damage << " damage to " << ec->getType()
     << " (" << ec->getHp() << " HP).";

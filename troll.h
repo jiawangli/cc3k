@@ -16,8 +16,8 @@ class Troll: public Player{
 public:
     Troll();
     string attack(Character *ec) override;
-    void addHp(); // add 5 hp to troll(will not exceed max hp)
-    void reset();
+    void trollAddHp() override; // add 5 hp to troll(will not exceed max hp)
+    void reset() override;
 };
 
 #endif /* troll_hpp */
