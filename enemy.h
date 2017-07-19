@@ -11,7 +11,7 @@ public:
 	Enemy(int hp, int atk, int def);
 	bool getHostile() const override;
 	void setHostile(bool hostile) override;
-	~Enemy();
+	virtual ~Enemy();
 };
 
 #endif

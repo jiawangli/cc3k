@@ -44,3 +44,5 @@ void Drow::reset(){
     setAtk(25);
     setDef(15);
 }
+
+Drow::~Drow(){}

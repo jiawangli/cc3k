@@ -17,6 +17,7 @@ public:
     Goblin();
     string attack(Character *ec) override;
     void reset() override;
+    ~Goblin();
 };
 
 #endif /* goblin_hpp */

@@ -15,6 +15,7 @@ class Dwarf: public Enemy{
 public:
     Dwarf();
     string attack(Character *pc) override;
+    ~Dwarf();
 };
 
 

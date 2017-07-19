@@ -17,6 +17,7 @@ public:
     Drow();
     string attack(Character *ec) override;
     void reset() override;
+    ~Drow();
 };
 
 #endif /* drow_hpp */

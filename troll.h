@@ -18,6 +18,7 @@ public:
     string attack(Character *ec) override;
     void trollAddHp() override; // add 5 hp to troll(will not exceed max hp)
     void reset() override;
+    ~Troll();
 };
 
 #endif /* troll_hpp */

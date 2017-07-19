@@ -17,6 +17,7 @@ public:
     Vampire();
     string attack(Character *ec) override;
     void reset() override;
+    ~Vampire();
 };
 
 
