@@ -1,12 +1,12 @@
 //
-//  human.cpp
+//  orcs.cpp
 //  cc3k
 //
 //  Created by w43wei on 2017-07-19.
 //  Copyright © 2017 w43wei. All rights reserved.
 //
 
-#include "human.h"
+#include "orcs.h"
 #include "character.h"
 #include <string>
 #include <iostream>
@@ -15,14 +15,21 @@
 
 using namespace std;
 
-// default ability of human: 140 HP, 20 Atk, 20 Def
-Human::Human(): Enemy(140, 20, 20){
-    this->type="dwarf";
+// default ability of orcs: 180 HP, 30 Atk, 25 Def
+Orcs::Orcs(): Enemy(180, 30, 25){
+    this->type="orcs";
+    setHostile(true);
+    if(rand()%100 < 50){ // randomly generate gold
+        addGold(1);
+    }else{
+        addGold(2);
+    }
     setHostile(true);
 }
 
-string Human::attack(Character *pc){
+string Orcs::attack(Character *pc){
     int damage=(int)(atk*(100.0/(100.0+pc->getDef())));
+    if(pc->getType()=="goblin") damage=(int)damage*1.5; // does 50% more damage to goblins
     int newHp;
     if(pc->getHp()-damage<0){ // hp cannot be zero
         newHp=0;
@@ -41,4 +48,4 @@ string Human::attack(Character *pc){
     
 }
 
-Human::~Human(){}
+Orcs::~Orcs(){}
