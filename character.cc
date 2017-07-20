@@ -35,3 +35,11 @@ void Character::addGold(int gold) {
 int Character::getGold() const{
     return gold;
 }
+
+void Character::reset(){}
+void Character::trollAddHp(){}
+Character::~Character(){}
+bool Character::getHostile() const{
+    return true; // don't mean anything
+}
+void Character::setHostile(bool hostile){}

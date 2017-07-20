@@ -28,10 +28,10 @@ public:
     void addGold(int gold); // add gold to pc/ec
     int getGold() const; // get the amount of gold
     virtual void reset(); // reset potion of player
-    virtual void trollAddHp()=0; // add 5 hp to troll
-	virtual ~Character() = 0;
-    virtual bool getHostile() const=0;
-    virtual void setHostile(bool hostile)=0;
+    virtual void trollAddHp(); // add 5 hp to troll
+	virtual ~Character();
+    virtual bool getHostile() const;
+    virtual void setHostile(bool hostile);
 };
 
 

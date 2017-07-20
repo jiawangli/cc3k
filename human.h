@@ -1,23 +1,22 @@
 //
-//  dwarf.hpp
+//  human.hpp
 //  cc3k
 //
-//  Created by w43wei on 2017-07-17.
+//  Created by w43wei on 2017-07-19.
 //  Copyright © 2017 w43wei. All rights reserved.
 //
 
-#ifndef dwarf_h
-#define dwarf_h
+#ifndef human_h
+#define human_h
 
 #include "enemy.h"
 #include "character.h"
 
-class Dwarf: public Enemy{
+class Human: public Enemy{
 public:
-    Dwarf();
+    Human();
     string attack(Character *pc) override;
-    ~Dwarf();
+    ~Human();
 };
 
-
-#endif /* dwarf_hpp */
+#endif /* human_hpp */
