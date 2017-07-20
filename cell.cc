@@ -10,10 +10,10 @@
 
 using namespace std;
 
-Cell::Cell(int x, int y, char display) {
+void Cell::setCell(int x, int y, char type) {
     x = x;
     y = y;
-    display = display;
+    display = type;
     _content = nullptr;
     __content = nullptr;
     numberofneighbours = 0;
@@ -25,10 +25,20 @@ Cell::Cell(int x, int y, char display) {
     is_enemy = false;
     is_item = false;
     is_player = false;
+    //cout << display;
+}
+
+Cell::Cell() {
+    is_occupied = false;
+    is_enemy = false;
+    is_player = false;
+    is_item = false;
+    _content = nullptr;
+    __content = nullptr;
 }
 
 void Cell::rmobject() {
-    type = '.';
+    display = '.';
     _content = nullptr;
     __content = nullptr;
     is_occupied = false;
@@ -59,10 +69,10 @@ void Cell::set_player(){
     is_enemy = false;
 }
 
-
-void Cell::set_Display(char type) {
-    display = type;
-}
+//
+//void Cell::Display() {
+//    cout << display;
+//}
 
 void Cell::addNeighbour(Cell* neighbour){
     neighbours[numberofneighbours] = neighbour;
@@ -77,7 +87,7 @@ Character* Cell::getCharacter(){
     return _content;
 }
 
-item* Cell::getItem() {
+Item* Cell::getItem() {
     return __content;
 }
 

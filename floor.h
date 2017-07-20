@@ -13,16 +13,18 @@
 #include <string>
 #include <vector>
 #include <fstream>
-#include "Character.h"
+#include "character.h"
 #include "item.h"
 #include "cell.h"
 
 class Floor {
     int width = 80;
     int height = 25;
-    cell** grid;
-    //vector<vector<Cell>> chamber;
-    vector<cell> availableCell;
+    //Cell grid[width][height];
+    //Cell** grid;
+    vector<vector<Cell>> grid;
+    vector<vector<Cell*>> chamber;
+    vector<Cell> availableCell;
 public:
     Floor();
     Floor(std::string,int);

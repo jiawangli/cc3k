@@ -12,16 +12,16 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "Character.h"
+#include "character.h"
 #include "item.h"
 
 class Cell {
     int x=0;
     int y=0;
-    char display=' ';
+    
     Cell *neighbours[9];
-    character *_content;
-    item *__content;
+    Character *_content;
+    Item *__content;
     
 public:
     bool is_occupied;
@@ -29,17 +29,19 @@ public:
     bool is_item;
     bool is_player;
     int numberofneighbours;
+    char display='.';
     
-    Cell(int x, int y, char type);
+    Cell();
+    void setCell(int x, int y, char type);
     void rmobject();
     void set_enemy();
     void set_player();
     void set_item();
-    void set_Display(char);
+    //void Display();
     void addNeighbour(Cell* neighbour);
     Cell* getNeighbour(int);
-    character* getCharacter();
-    item* getItem();
+    Character* getCharacter();
+    Item* getItem();
     ~Cell();
 };
 
