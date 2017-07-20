@@ -14,7 +14,7 @@ int Character::getHp() const {
 void Character::setHp(int hp) {
 	this->hp = hp;
 }
-int Character::getMaxHP() const {
+int Character::getMaxHp() const {
 	return maxHp;
 }
 int Character::getAtk() const {
@@ -35,3 +35,11 @@ void Character::addGold(int gold) {
 int Character::getGold() const{
     return gold;
 }
+
+void Character::reset(){}
+void Character::trollAddHp(){}
+Character::~Character(){}
+bool Character::getHostile() const{
+    return true; // don't mean anything
+}
+void Character::setHostile(bool hostile){}

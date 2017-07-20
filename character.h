@@ -11,7 +11,7 @@ protected:
 	int hp=0;
 	int atk=0;
 	int def=0;
-    	int gold=0;
+    int gold=0; // conecret
 	string type="unnamed";
 public:
 	Character();
@@ -20,16 +20,18 @@ public:
 	string getType() const;
 	int getHp() const;
 	void setHp(int hp);
-	int getMaxHP() const;
+	int getMaxHp() const;
 	int getAtk() const;
 	int setAtk(int atk);
 	int getDef() const;
 	int setDef(int def);
-    void addGold(int gold);
-    int getGold() const;
-    virtual void reset();
-    virtual void trollAddHp()=0;
-	virtual ~Character() = 0;
+    void addGold(int gold); // add gold to pc/ec
+    int getGold() const; // get the amount of gold
+    virtual void reset(); // reset potion of player
+    virtual void trollAddHp(); // add 5 hp to troll
+	virtual ~Character();
+    virtual bool getHostile() const;
+    virtual void setHostile(bool hostile);
 };
 
 

@@ -17,6 +17,7 @@ public:
     Shade();
     string attack(Character *ec) override;
     void reset() override;
+    ~Shade();
 };
 
 #endif /* shade_hpp */

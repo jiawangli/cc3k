@@ -44,3 +44,5 @@ void Shade::reset(){
     setAtk(25);
     setDef(25);
 }
+
+Shade::~Shade(){}

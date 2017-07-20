@@ -1,12 +1,12 @@
 //
-//  dwarf.cpp
+//  human.cpp
 //  cc3k
 //
-//  Created by w43wei on 2017-07-17.
+//  Created by w43wei on 2017-07-19.
 //  Copyright © 2017 w43wei. All rights reserved.
 //
 
-#include "dwarf.h"
+#include "human.h"
 #include "character.h"
 #include <string>
 #include <iostream>
@@ -15,18 +15,13 @@
 
 using namespace std;
 
-// default ability of dwarf: 100 HP, 20 Atk, 30 Def
-Dwarf::Dwarf(): Enemy(100, 20, 30){
+// default ability of human: 140 HP, 20 Atk, 20 Def
+Human::Human(): Enemy(140, 20, 20){
     this->type="dwarf";
     setHostile(true);
-    if(rand()<0.5){
-        addGold(1);
-    }else{
-        addGold(2);
-    }
 }
 
-string Dwarf::attack(Character *pc){
+string Human::attack(Character *pc){
     int damage=(int)(atk*(100.0/(100.0+pc->getDef())));
     int newHp;
     if(pc->getHp()-damage<0){ // hp cannot be zero
@@ -43,7 +38,7 @@ string Dwarf::attack(Character *pc){
         ss << type << " deals " << damage << " damage to PC.";
         return ss.str();
     }
-
+    
 }
 
-Dwarf::~Dwarf(){}
+Human::~Human(){}

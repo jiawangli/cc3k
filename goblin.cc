@@ -17,7 +17,7 @@ using namespace std;
 
 // default ability of goblin: 110 HP, 15 Atk, 20 Def
 Goblin::Goblin(): Player(110, 15, 20){
-    this->type="shade";
+    this->type="goblin";
 }
 
 string Goblin::attack(Character *ec){
@@ -45,3 +45,5 @@ void Goblin::reset(){
     setAtk(15);
     setDef(20);
 }
+
+Goblin::~Goblin(){}

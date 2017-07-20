@@ -49,3 +49,5 @@ void Vampire::reset(){
     setAtk(25);
     setDef(25);
 }
+
+Vampire::~Vampire() {}

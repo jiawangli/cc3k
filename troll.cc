@@ -40,7 +40,7 @@ string Troll::attack(Character *ec){
     return ss.str();
 }
 
-void Troll::addHp(){
+void Troll::trollAddHp(){
     hp+=5;
     if(hp>maxHp) hp=120;
 }
@@ -49,4 +49,6 @@ void Troll::reset(){
     setAtk(25);
     setDef(15);
 }
+
+Troll::~Troll() {}
 

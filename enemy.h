@@ -9,9 +9,9 @@ class Enemy : public Character {
 public:
 	Enemy();
 	Enemy(int hp, int atk, int def);
-	bool getHostile() const;
-	void setHostile(bool hostile);
-	~Enemy();
+	bool getHostile() const override;
+	void setHostile(bool hostile) override;
+	virtual ~Enemy();
 };
 
 #endif
