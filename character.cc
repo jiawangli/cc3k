@@ -14,18 +14,32 @@ int Character::getHp() const {
 void Character::setHp(int hp) {
 	this->hp = hp;
 }
-int Character::getMaxHP() const {
+int Character::getMaxHp() const {
 	return maxHp;
 }
 int Character::getAtk() const {
 	return atk;
 }
 int Character::setAtk(int atk) {
-	this->atk = atk;
+	return this->atk = atk;
 }
 int Character::getDef() const {
 	return def;
 }
 int Character::setDef(int def) {
-	this->def = def;
+	return this->def = def;
 }
+void Character::addGold(int gold) {
+    this->gold += gold;
+}
+int Character::getGold() const{
+    return gold;
+}
+
+void Character::reset(){}
+void Character::trollAddHp(){}
+Character::~Character(){}
+bool Character::getHostile() const{
+    return true; // don't mean anything
+}
+void Character::setHostile(bool hostile){}
