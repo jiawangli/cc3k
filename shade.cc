@@ -29,7 +29,7 @@ string Shade::attack(Character *ec){
         newHp=ec->getHp()-damage;
     }
     ostringstream ss;
-    if(rand()<0.5 && ec->getType()=="halfling"){ // 50% chance miss
+    if(rand()%100 < 50 && ec->getType()=="halfling"){ // 50% chance miss
         return "PC misses the attack on halfling.";
     }
     

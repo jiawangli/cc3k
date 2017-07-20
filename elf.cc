@@ -1,12 +1,12 @@
 //
-//  human.cpp
+//  elf.cpp
 //  cc3k
 //
 //  Created by w43wei on 2017-07-19.
 //  Copyright © 2017 w43wei. All rights reserved.
 //
 
-#include "human.h"
+#include "elf.h"
 #include "character.h"
 #include <string>
 #include <iostream>
@@ -15,13 +15,19 @@
 
 using namespace std;
 
-// default ability of human: 140 HP, 20 Atk, 20 Def
-Human::Human(): Enemy(140, 20, 20){
-    this->type="dwarf";
+// default ability of elf: 140 HP, 30 Atk, 10 Def
+Elf::Elf(): Enemy(140, 30, 10){
+    this->type="elf";
+    setHostile(true);
+    if(rand()%100 < 50){
+        addGold(1);
+    }else{
+        addGold(2);
+    }
     setHostile(true);
 }
 
-string Human::attack(Character *pc){
+string Elf::attack(Character *pc){
     int damage=(int)(atk*(100.0/(100.0+pc->getDef())));
     int newHp;
     if(pc->getHp()-damage<0){ // hp cannot be zero
@@ -41,4 +47,4 @@ string Human::attack(Character *pc){
     
 }
 
-Human::~Human(){}
+Elf::~Elf(){}
