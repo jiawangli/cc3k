@@ -17,9 +17,9 @@ class Character;
 class Treasure: public Item{
     Character *dragon;
 public:
-    Treasure(string type, int value, Character *dragon);
-    void effect(Character *c);
-    ~Treasure();
+    Treasure(string type, Character *dragon);
+    string effect(Character *c);
+    ~Treasure(){}
 };
 
 

@@ -16,9 +16,9 @@
 class Potion: public Item{
     bool is_drow;
 public:
-    Potion(string &type, int value, bool is_drow);
-    void effect(Character *c);
-    ~Potion();
+    Potion(string type, bool is_drow);
+    string effect(Character *c);
+    ~Potion(){}
 };
 
 
