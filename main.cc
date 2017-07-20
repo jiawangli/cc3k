@@ -1,27 +1,19 @@
 //
-//  main.cc
-//  item
+//  main.cpp
+//  cc3k
 //
-//  Created by 姚博伦 on 2017/7/19.
-//  Copyright © 2017年 姚博伦. All rights reserved.
+//  Created by j539li on 2017-07-18.
+//  Copyright © 2017 j539li. All rights reserved.
 //
 
-#include <stdio.h>
-#include "gameplay.h"
 #include <iostream>
-int main(){
-    Gameplay newgame = Gameplay();
-    string command;
-    while(cin >> command){
-        if(command == "q"){
-            brea
-        }
-    }
-    
+#include "floor.h"
+#include "cell.h"
+#include "character.h"
+
+int main(int argc, const char * argv[]) {
+    Floor a = Floor();
+    a.DisplayMap();
+    //cout << "hello word";
+    return 0;
 }
-
-
-
-
-
-
