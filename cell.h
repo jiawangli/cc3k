@@ -6,8 +6,8 @@
 //  Copyright © 2017 j539li. All rights reserved.
 //
 
-#ifndef cell_hpp
-#define cell_hpp
+#ifndef cell_h
+#define cell_h
 
 #include <iostream>
 #include <string>
@@ -19,17 +19,21 @@ class Cell {
     int x=0;
     int y=0;
     
-    Cell *neighbours[9];
-    Character *_content;
-    Item *__content;
+    Cell *neighbours[9]; // gai ****
+
     
 public:
+    Character *_content;
+    Item *__content;
     bool is_occupied;
     bool is_enemy;
     bool is_item;
     bool is_player;
     int numberofneighbours;
     char display='.';
+    
+    int getx();
+    int gety();
     
     Cell();
     void setCell(int x, int y, char type);

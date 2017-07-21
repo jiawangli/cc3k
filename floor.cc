@@ -46,6 +46,7 @@ Floor::Floor() {
             }
         }
     }
+    cout << temp1.size() << endl;
     chamber.push_back(temp1);
     vector<Cell*> temp2;
     for (int i = 0; i < height; i++) {
@@ -73,6 +74,7 @@ Floor::Floor() {
             }
         }
     }
+    cout << temp2.size() << endl;
     chamber.push_back(temp2);
     vector<Cell*> temp3;
     for (int i = 0; i < height; i++) {
@@ -80,24 +82,26 @@ Floor::Floor() {
             if (i < 13 && i > 9) {
                 if (j > 37 && j < 50) {
                     Cell* a = &(grid[i][j]);
-                    temp2.push_back(a);
+                    temp3.push_back(a);
                 }
             }
         }
     }
     chamber.push_back(temp3);
+    cout << temp3.size() << endl;
     vector<Cell*> temp4;
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             if (i < 22 && i > 14) {
                 if (j > 3 && j < 25) {
                     Cell* a = &(grid[i][j]);
-                    temp2.push_back(a);
+                    temp4.push_back(a);
                 }
             }
         }
     }
     chamber.push_back(temp4);
+    cout << temp4.size() << endl;
     vector<Cell*> temp5;
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -109,11 +113,14 @@ Floor::Floor() {
             }else if (i < 22 && i > 18) {
                 if (j > 36 && j < 76) {
                     Cell* a = &(grid[i][j]);
-                    temp2.push_back(a);
+                    temp5.push_back(a);
                 }
             }
         }
     }
+    chamber.push_back(temp5);
+    cout << temp5.size() << endl;
+    spawn_player("Vampire");
     
 
 //    for (int i = 0; i < width; i++) {
@@ -188,8 +195,92 @@ void Floor::set_chamber() {
 }
 
 
-void Floor::spawn_player(std::string) {
-    
+void Floor::spawn_player(std::string playername) {
+    int x, stairX;
+    unsigned int y, stairY;
+    x = rand() % 5;
+    y = rand() % chamber[x].size();
+    stairX = rand() % 5;
+    while (1) {
+        if (stairX == x) {
+            stairX = rand() % 5;
+        }else {
+            break;
+        }
+    }
+    stairY = rand() % chamber[stairX].size();
+    chamber[stairX][stairY]->is_occupied = true;
+    chamber[stairX][stairY]->is_player = false;
+    chamber[stairX][stairY]->is_item = false;
+    chamber[stairX][stairY]->is_enemy = false;
+    chamber[stairX][stairY]->display = '\\';
+    switch (playername[0]) {
+        case 'S':{
+            Shade S = Shade();
+            Character* addr = &(S);
+            chamber[x][y]->_content = addr;
+            chamber[x][y]->display = '@';
+            chamber[x][y]->is_player = true;
+            chamber[x][y]->is_enemy = false;
+            chamber[x][y]->is_item = false;
+            chamber[x][y]->is_occupied = true;
+            playerX = chamber[x][y]->getx();
+            playerY = chamber[x][y]->gety();
+            break;
+        }
+        case 'D':{
+            Drow D = Drow();
+            Character* addr = &(D);
+            chamber[x][y]->_content = addr;
+            chamber[x][y]->display = '@';
+            chamber[x][y]->is_player = true;
+            chamber[x][y]->is_enemy = false;
+            chamber[x][y]->is_item = false;
+            chamber[x][y]->is_occupied = true;
+            playerX = chamber[x][y]->getx();
+            playerY = chamber[x][y]->gety();
+            break;
+        }
+        case 'V':{
+            Vampire V = Vampire();
+            Character* addr = &(V);
+            chamber[x][y]->_content = addr;
+            chamber[x][y]->display = '@';
+            chamber[x][y]->is_player = true;
+            chamber[x][y]->is_enemy = false;
+            chamber[x][y]->is_item = false;
+            chamber[x][y]->is_occupied = true;
+            playerX = chamber[x][y]->getx();
+            playerY = chamber[x][y]->gety();
+            break;
+        }
+        case 'T':{
+            Troll T = Troll();
+            Character* addr = &(T);
+            chamber[x][y]->_content = addr;
+            chamber[x][y]->display = '@';
+            chamber[x][y]->is_player = true;
+            chamber[x][y]->is_enemy = false;
+            chamber[x][y]->is_item = false;
+            chamber[x][y]->is_occupied = true;
+            playerX = chamber[x][y]->getx();
+            playerY = chamber[x][y]->gety();
+            break;
+        }
+        case 'G': {
+            Goblin G = Goblin();
+            Character* addr = &(G);
+            chamber[x][y]->_content = addr;
+            chamber[x][y]->display = '@';
+            chamber[x][y]->is_player = true;
+            chamber[x][y]->is_enemy = false;
+            chamber[x][y]->is_item = false;
+            chamber[x][y]->is_occupied = true;
+            playerX = chamber[x][y]->getx();
+            playerY = chamber[x][y]->gety();
+            break;
+        }
+    }
 }
 
 
