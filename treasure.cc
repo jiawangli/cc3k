@@ -9,19 +9,25 @@
 #include <iostream>
 #include "treasure.h"
 
-Treasure::Treasure(string type, int value, Character *dragon): Item{type, value}, dragon{dragon}{}
+Treasure::Treasure(string type, Character *dragon): Item{type}, dragon{dragon}{}
 
-void Treasure::effect(Character *c) {
+string Treasure::effect(Character *c) {
     int Gold = c->getGold();
+    string g;
     if(type == "small"){
         c->addGold(Gold + 1);
+        g = "small";
     } else if(type == "normal") {
         c->addGold(Gold + 2);
+        g = "normal";
     } else if(type == "merchant_hoard") {
         c->addGold(Gold + 4);
+        g = "merchant_hoard";
     } else if(type == "dragon_hoard") {
         c->addGold(Gold + 6);
+        g = "dragon_hoard";
     } else {
         cout << "Gold type doesn't exist" << endl;
     }
+    return g;
 }

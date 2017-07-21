@@ -1,12 +1,12 @@
 //
-//  human.cpp
+//  dragon.cpp
 //  cc3k
 //
 //  Created by w43wei on 2017-07-19.
 //  Copyright © 2017 w43wei. All rights reserved.
 //
 
-#include "human.h"
+#include "dragon.h"
 #include "character.h"
 #include <string>
 #include <iostream>
@@ -15,13 +15,13 @@
 
 using namespace std;
 
-// default ability of human: 140 HP, 20 Atk, 20 Def
-Human::Human(): Enemy(140, 20, 20){
-    this->type="dwarf";
-    setHostile(true);
+// default ability of Dragon: 150 HP, 20 Atk, 20 Def
+Dragon::Dragon(): Enemy(150, 20, 20){
+    this->type="dragon";
+    setHostile(false);
 }
 
-string Human::attack(Character *pc){
+string Dragon::attack(Character *pc){
     int damage=(int)(atk*(100.0/(100.0+pc->getDef())));
     int newHp;
     if(pc->getHp()-damage<0){ // hp cannot be zero
@@ -41,4 +41,4 @@ string Human::attack(Character *pc){
     
 }
 
-Human::~Human(){}
+Dragon::~Dragon(){}

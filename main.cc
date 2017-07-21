@@ -12,8 +12,10 @@
 #include "character.h"
 
 int main(int argc, const char * argv[]) {
-    Floor a = Floor();
+    Floor a;
     a.DisplayMap();
+    Floor b;
+    b.DisplayMap();
     //cout << "hello word";
     return 0;
 }

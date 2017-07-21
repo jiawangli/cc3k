@@ -74,6 +74,14 @@ void Cell::set_player(){
 //    cout << display;
 //}
 
+int Cell::getx() {
+    return x;
+}
+
+int Cell::gety() {
+    return y;
+}
+
 void Cell::addNeighbour(Cell* neighbour){
     neighbours[numberofneighbours] = neighbour;
     numberofneighbours++;

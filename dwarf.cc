@@ -19,7 +19,7 @@ using namespace std;
 Dwarf::Dwarf(): Enemy(100, 20, 30){
     this->type="dwarf";
     setHostile(true);
-    if(rand()<0.5){
+    if(rand()%100 < 50){
         addGold(1);
     }else{
         addGold(2);
@@ -35,7 +35,7 @@ string Dwarf::attack(Character *pc){
         newHp=pc->getHp()-damage;
     }
     ostringstream ss;
-    if(rand()<0.5){ // 50% chance miss
+    if(rand()%100 < 50){ // 50% chance miss
         return type+" misses the attack on PC.";
     }else{
         // don't miss

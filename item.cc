@@ -8,5 +8,5 @@
 
 #include "item.h"
 
-Item::Item(string type, int value): type{type}, value{value}{}
-
+Item::Item(string type): type{type}{}
+Item::~Item(){}
