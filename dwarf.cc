@@ -18,7 +18,6 @@ using namespace std;
 // default ability of dwarf: 100 HP, 20 Atk, 30 Def
 Dwarf::Dwarf(): Enemy(100, 20, 30){
     this->type="dwarf";
-    setHostile(true);
     if(rand()%100 < 50){
         addGold(1);
     }else{

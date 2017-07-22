@@ -18,7 +18,6 @@ using namespace std;
 // default ability of human: 140 HP, 20 Atk, 20 Def
 Human::Human(): Enemy(140, 20, 20){
     this->type="dwarf";
-    setHostile(true);
 }
 
 string Human::attack(Character *pc){

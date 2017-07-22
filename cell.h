@@ -38,9 +38,9 @@ public:
     Cell();
     void setCell(int x, int y, char type);
     void rmobject();
-    void set_enemy();
+    void set_enemy(Character*);
     void set_player();
-    void set_item();
+    void set_item(Item*);
     //void Display();
     void addNeighbour(Cell* neighbour);
     Cell* getNeighbour(int);

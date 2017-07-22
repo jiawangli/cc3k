@@ -18,13 +18,11 @@ using namespace std;
 // default ability of elf: 140 HP, 30 Atk, 10 Def
 Elf::Elf(): Enemy(140, 30, 10){
     this->type="elf";
-    setHostile(true);
     if(rand()%100 < 50){
         addGold(1);
     }else{
         addGold(2);
     }
-    setHostile(true);
 }
 
 string Elf::attack(Character *pc){

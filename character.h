@@ -30,8 +30,6 @@ public:
     virtual void reset(); // reset potion of player
     virtual void trollAddHp(); // add 5 hp to troll
 	virtual ~Character();
-    virtual bool getHostile() const;
-    virtual void setHostile(bool hostile);
 };
 
 
