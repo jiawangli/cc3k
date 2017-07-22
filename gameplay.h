@@ -14,14 +14,21 @@
 
 class Gameplay{
     Floor f;
+    vector<Floor*> v;
+    Cell *newcord(string dir, int x, int y);
+    string attackplayer(Character *nc, Character *player);
 public:
     Gameplay();
-    void move(string direction);
-    void usepotion(string direction);
-    void attackenemy(string direction);
-    void attackplayer();
-    void setplayer(char pc);
-    void restart();
-    void quit();
+    Gameplay(string file, int x);
+    int create_game();
+    int kk();
+    string move(string direction);
+    string usepotion(string direction);
+    string attackenemy(string direction);
+    string attackplayer();
+    string setplayer(char pc);
+    string restart();
+    string stop_moving();
+    string quit();
 };
 #endif /* gameplay_h */
