@@ -2,7 +2,6 @@
 #define _PLAYER_H_
 
 #include "character.h"
-#include "enemy.h"
 
 class Player : public Character {
 public:

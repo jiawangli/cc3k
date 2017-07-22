@@ -48,18 +48,22 @@ void Cell::rmobject() {
 }
 
 
-void Cell::set_item(){
+void Cell::set_item(Item* addr){
+    display = 'P';
     is_occupied = true;
     is_player = false;
     is_item = true;
     is_enemy = false;
+    __content = addr;
+    
 }
 
-void Cell::set_enemy() {
+void Cell::set_enemy(Character* addr) {
     is_occupied = true;
     is_player = false;
     is_item = false;
     is_enemy = true;
+    _content = addr;
 }
 
 void Cell::set_player(){
@@ -73,6 +77,14 @@ void Cell::set_player(){
 //void Cell::Display() {
 //    cout << display;
 //}
+
+int Cell::getx() {
+    return x;
+}
+
+int Cell::gety() {
+    return y;
+}
 
 void Cell::addNeighbour(Cell* neighbour){
     neighbours[numberofneighbours] = neighbour;
@@ -90,6 +102,7 @@ Character* Cell::getCharacter(){
 Item* Cell::getItem() {
     return __content;
 }
+
 
 Cell::~Cell() {
 

@@ -18,7 +18,6 @@ using namespace std;
 // default ability of halfling: 100 HP, 15 Atk, 20 Def
 Halfling::Halfling(): Enemy(100, 15, 20){
     this->type="halfling";
-    setHostile(true);
     if(rand()%100 < 50){
         addGold(1);
     }else{

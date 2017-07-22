@@ -6,8 +6,8 @@
 //  Copyright © 2017 w43wei. All rights reserved.
 //
 
-#ifndef vampire_hpp
-#define vampire_hpp
+#ifndef vampire_h
+#define vampire_h
 
 #include "player.h"
 #include "character.h"

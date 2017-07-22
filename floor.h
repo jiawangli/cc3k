@@ -6,16 +6,33 @@
 //  Copyright © 2017 j539li. All rights reserved.
 //
 
-#ifndef floor_hpp
-#define floor_hpp
+#ifndef floor_h
+#define floor_h
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
+#include <stdlib.h>
 #include "character.h"
 #include "item.h"
 #include "cell.h"
+#include "enemy.h"
+#include "player.h"
+#include "treasure.h"
+#include "potion.h"
+#include "dragon.h"
+#include "drow.h"
+#include "dwarf.h"
+#include "elf.h"
+#include "goblin.h"
+#include "halfling.h"
+#include "merchant.h"
+#include "orcs.h"
+#include "shade.h"
+#include "troll.h"
+#include "vampire.h"
+#include "human.h"
 
 class Floor {
     int width = 80;
@@ -24,7 +41,13 @@ class Floor {
     //Cell** grid;
     vector<vector<Cell>> grid;
     vector<vector<Cell*>> chamber;
-    vector<Cell> availableCell;
+//    vector<Cell*> availableCell;
+    vector<Enemy> listofenmey;
+    vector<Potion> listofpotion;
+    vector<Treasure> listoftreasure;
+    int playerX;
+    int playerY;
+    bool is_drow=false;
 public:
     Floor();
     Floor(std::string,int);
@@ -35,6 +58,9 @@ public:
     void move_enemy();
     void move_player();
     void DisplayMap();
+    void spawn_gold();
+    Cell* getCell(int x, int y);
+    Cell* getPlayer();
 };
 
 #endif /* floor_hpp */
