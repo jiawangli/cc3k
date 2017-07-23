@@ -35,6 +35,14 @@ Floor::Floor() {
         //cout << endl;
         grid.push_back(temp);
     }
+//    for (int i = 0; i < height; i++) {
+//        for (int j = 0; j < width; j++) {
+//            if (grid[i][j].display == '.') {
+//                Cell* a = &(grid[i][j]);
+//                availableCell.push_back(a);
+//            }
+//        }
+//    }
     vector<Cell*> temp1;
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width;j++) {
@@ -46,7 +54,7 @@ Floor::Floor() {
             }
         }
     }
-    cout << temp1.size() << endl;
+    //cout << temp1.size() << endl;
     chamber.push_back(temp1);
     vector<Cell*> temp2;
     for (int i = 0; i < height; i++) {
@@ -74,7 +82,7 @@ Floor::Floor() {
             }
         }
     }
-    cout << temp2.size() << endl;
+   // cout << temp2.size() << endl;
     chamber.push_back(temp2);
     vector<Cell*> temp3;
     for (int i = 0; i < height; i++) {
@@ -88,7 +96,7 @@ Floor::Floor() {
         }
     }
     chamber.push_back(temp3);
-    cout << temp3.size() << endl;
+   // cout << temp3.size() << endl;
     vector<Cell*> temp4;
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -101,7 +109,7 @@ Floor::Floor() {
         }
     }
     chamber.push_back(temp4);
-    cout << temp4.size() << endl;
+   // cout << temp4.size() << endl;
     vector<Cell*> temp5;
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
@@ -119,8 +127,11 @@ Floor::Floor() {
         }
     }
     chamber.push_back(temp5);
-    cout << temp5.size() << endl;
+    //cout << temp5.size() << endl;
     spawn_player("Vampire");
+    spawn_potions();
+    spawn_gold();
+    //spawn_enemies();
     
 
 //    for (int i = 0; i < width; i++) {
@@ -190,12 +201,16 @@ Floor::Floor(string filename, int floorindex) {
 }
 
 
-void Floor::set_chamber() {
-    
+Cell* Floor::getCell(int x, int y) {
+    return &(grid[x][y]);
+}
+
+Cell* Floor::getPlayer() {
+    return &(grid[playerX][playerY]);
 }
 
 
-void Floor::spawn_player(std::string playername) {
+void Floor::spawn_player(Character* pc) {
     int x, stairX;
     unsigned int y, stairY;
     x = rand() % 5;
@@ -208,98 +223,195 @@ void Floor::spawn_player(std::string playername) {
             break;
         }
     }
+    chamber[x][y]->_content = pc;
+    chamber[x][y]->display = '@';
+    chamber[x][y]->set_player();
+    playerX = chamber[x][y]->getx();
+    playerY = chamber[x][y]->gety();
     stairY = rand() % chamber[stairX].size();
     chamber[stairX][stairY]->is_occupied = true;
     chamber[stairX][stairY]->is_player = false;
     chamber[stairX][stairY]->is_item = false;
     chamber[stairX][stairY]->is_enemy = false;
     chamber[stairX][stairY]->display = '\\';
-    switch (playername[0]) {
-        case 'S':{
-            Shade S = Shade();
-            Character* addr = &(S);
-            chamber[x][y]->_content = addr;
-            chamber[x][y]->display = '@';
-            chamber[x][y]->is_player = true;
-            chamber[x][y]->is_enemy = false;
-            chamber[x][y]->is_item = false;
-            chamber[x][y]->is_occupied = true;
-            playerX = chamber[x][y]->getx();
-            playerY = chamber[x][y]->gety();
-            break;
-        }
-        case 'D':{
-            Drow D = Drow();
-            Character* addr = &(D);
-            chamber[x][y]->_content = addr;
-            chamber[x][y]->display = '@';
-            chamber[x][y]->is_player = true;
-            chamber[x][y]->is_enemy = false;
-            chamber[x][y]->is_item = false;
-            chamber[x][y]->is_occupied = true;
-            playerX = chamber[x][y]->getx();
-            playerY = chamber[x][y]->gety();
-            break;
-        }
-        case 'V':{
-            Vampire V = Vampire();
-            Character* addr = &(V);
-            chamber[x][y]->_content = addr;
-            chamber[x][y]->display = '@';
-            chamber[x][y]->is_player = true;
-            chamber[x][y]->is_enemy = false;
-            chamber[x][y]->is_item = false;
-            chamber[x][y]->is_occupied = true;
-            playerX = chamber[x][y]->getx();
-            playerY = chamber[x][y]->gety();
-            break;
-        }
-        case 'T':{
-            Troll T = Troll();
-            Character* addr = &(T);
-            chamber[x][y]->_content = addr;
-            chamber[x][y]->display = '@';
-            chamber[x][y]->is_player = true;
-            chamber[x][y]->is_enemy = false;
-            chamber[x][y]->is_item = false;
-            chamber[x][y]->is_occupied = true;
-            playerX = chamber[x][y]->getx();
-            playerY = chamber[x][y]->gety();
-            break;
-        }
-        case 'G': {
-            Goblin G = Goblin();
-            Character* addr = &(G);
-            chamber[x][y]->_content = addr;
-            chamber[x][y]->display = '@';
-            chamber[x][y]->is_player = true;
-            chamber[x][y]->is_enemy = false;
-            chamber[x][y]->is_item = false;
-            chamber[x][y]->is_occupied = true;
-            playerX = chamber[x][y]->getx();
-            playerY = chamber[x][y]->gety();
-            break;
-        }
-    }
 }
 
 
 void Floor::spawn_potions() {
-
+    vector<string> lop = {"RH", "BA", "BD", "PH", "WA", "WD" };
+    for (int i = 0; i <  10; i++) {
+        unsigned int indexofpotion, numofchamber, indexofcellinsidechamber;
+        indexofpotion = rand() % 6;
+        Potion a(lop[indexofpotion],is_drow);
+        listofpotion.push_back(a);
+        numofchamber = rand() % 5;
+        indexofcellinsidechamber = rand() % chamber[numofchamber].size();
+        if (chamber[numofchamber][indexofcellinsidechamber]->display == '.') {
+            chamber[numofchamber][indexofcellinsidechamber]->set_item(&a);
+        }else {
+            indexofcellinsidechamber = rand() % chamber[numofchamber].size();
+        }
+    }
 }
 
+//
+//void Floor::spawn_enemies() {
+//    for (int i = 0;i < 20;i++) {
+//        int x = rand() % 18;
+//        if (x >= 0 && x <= 3) {
+//            Human a=Human();
+//            listofenmey.push_back(a);
+//            Character* addr = &a;
+//            int posx,posy;
+//            posx = rand() % height;
+//            posy = rand() % width;
+//            if (grid[posx][posy].display == '.') {
+//                grid[posx][posy].set_enemy(addr);
+//                grid[posx][posy].display = 'H';
+//            }else{
+//                posx = rand() % height;
+//                posy = rand() % width;
+//            }
+//        }
+//    }
+//}
+//        }else if (x == 4 || x == 5 || x == 6) {
+//            Dwarf a;
+//            listofenmey.push_back(a);
+//            Character* addr = &a;
+//            int posx,posy;
+//            posx = rand() % height;
+//            posy = rand() % width;
+//            if (grid[posx][posy].display == '.') {
+//                grid[posx][posy].set_enemy(addr);
+//                grid[posx][posy].display = 'W';
+//            }else{
+//                posx = rand() % height;
+//                posy = rand() % width;
+//            }
+//        }else if (x >= 7 && x <= 11) {
+//            Halfling a;
+//            listofenmey.push_back(a);
+//            Character* addr = &a;
+//            int posx,posy;
+//            posx = rand() % height;
+//            posy = rand() % width;
+//            if (grid[posx][posy].display == '.') {
+//                grid[posx][posy].set_enemy(addr);
+//                grid[posx][posy].display = 'L';
+//            }else{
+//                posx = rand() % height;
+//                posy = rand() % width;
+//            }
+//        }else if (x == 12 || x == 13) {
+//            Elf a;
+//            listofenmey.push_back(a);
+//            Character* addr = &a;
+//            int posx,posy;
+//            posx = rand() % height;
+//            posy = rand() % width;
+//            if (grid[posx][posy].display == '.') {
+//                grid[posx][posy].set_enemy(addr);
+//                grid[posx][posy].display = 'E';
+//            }else{
+//                posx = rand() % height;
+//                posy = rand() % width;
+//            }
+//        }else if (x == 14 || x == 15) {
+//            Orcs a;
+//            listofenmey.push_back(a);
+//            Character* addr = &a;
+//            int posx,posy;
+//            posx = rand() % height;
+//            posy = rand() % width;
+//            if (grid[posx][posy].display == '.') {
+//                grid[posx][posy].set_enemy(addr);
+//                grid[posx][posy].display = 'O';
+//            }else{
+//                posx = rand() % height;
+//                posy = rand() % width;
+//            }
+//        }else if (x == 16 || x == 17) {
+//            Merchant a;
+//            listofenmey.push_back(a);
+//            Character* addr = &a;
+//            int posx,posy;
+//            posx = rand() % height;
+//            posy = rand() % width;
+//            if (grid[posx][posy].display == '.') {
+//                grid[posx][posy].set_enemy(addr);
+//                grid[posx][posy].display = 'M';
+//            }else{
+//                posx = rand() % height;
+//                posy = rand() % width;
+//            }
+//        }
+//    }
+//}
 
-void Floor::spawn_enemies() {
-    
+void Floor::spawn_gold() {
+    for (int i = 0; i < 10; i++) {
+        int x = rand() % 8;
+        if (x >= 0 && x <= 4) {
+            Treasure a("normal",nullptr);
+            listoftreasure.push_back(a);
+            int posx,posy;
+            posx = rand() % height;
+            posy = rand() % width;
+            if (grid[posx][posy].display == '.') {
+                grid[posx][posy].set_item(&a);
+                grid[posx][posy].display = 'G';
+            }
+        }else if (x == 5) {
+            Dragon d;
+            Treasure a("dragon hoard",&d);
+            listoftreasure.push_back(a);
+            int posx,posy;
+            posx = rand() % height;
+            posy = rand() % width;
+            if (grid[posx][posy].display == '.') {
+                grid[posx][posy].set_item(&a);
+                grid[posx][posy].display = 'G';
+            }
+//            int dpos = rand() % grid[posx][posy].numberofneighbours;
+//            while (1) {
+//                if (grid[posx][posy].getNeighbour(dpos)->display == '.') {
+//                    grid[posx][posy].getNeighbour(dpos)->set_enemy(&d);
+//                    grid[posx][posy].getNeighbour(dpos)->display = 'D';
+//                }else{
+//                    dpos =rand() % grid[posx][posy].numberofneighbours;
+//                }
+//            }
+            
+        }else if (x == 6 || x == 7) {
+            Treasure a("small hoard",nullptr);
+            listoftreasure.push_back(a);
+            int posx,posy;
+            posx = rand() % height;
+            posy = rand() % width;
+            if (grid[posx][posy].display == '.') {
+                grid[posx][posy].set_item(&a);
+                grid[posx][posy].display = 'G';
+            }
+        }
+        
+    }
 }
-
 
 void Floor::move_enemy() {
     
 }
 
 
-void Floor::move_player(){
+void Floor::move_player(string dir){
+    if (dir == "no") {
+        if (grid[playerX][playerY].display == '.' ||
+            grid[playerX][playerY].display == '#' ||
+            grid[playerX][playerY].display == '+') {
+            playerx
+        }
+    }
+
     
 }
 
