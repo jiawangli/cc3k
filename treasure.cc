@@ -26,8 +26,17 @@ string Treasure::effect(Character *c) {
     } else if(type == "dragon_hoard") {
         c->addGold(Gold + 6);
         g = "dragon_hoard";
+    } else if(type == "human_normal"){
+        c->addGold(Gold + 4);
     } else {
         cout << "Gold type doesn't exist" << endl;
     }
     return g;
+}
+bool Treasure::is_Potion() {
+    return false;
+}
+
+Character *Treasure::getdragon(){
+    return dragon;
 }

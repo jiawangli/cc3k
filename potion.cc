@@ -56,7 +56,9 @@ string Potion::effect(Character *c){
     return p;
 }
 
-
+bool Potion::is_Potion(){
+    return true;
+}
 
 
 

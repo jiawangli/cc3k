@@ -16,6 +16,7 @@
 class Potion: public Item{
     bool is_drow;
 public:
+    bool is_Potion();
     Potion(string type, bool is_drow);
     string effect(Character *c);
     ~Potion(){}

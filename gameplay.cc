@@ -11,71 +11,81 @@
 #include <sstream>
 #include <iostream>
 using namespace std;
-Gameplay::Gameplay(){
+Gameplay::Gameplay(): is_hostile{false}, champion{' '}, curr{0}{
     Floor f1;
     Floor f2;
     Floor f3;
     Floor f4;
     Floor f5;
-    vector<Floor*> v(5, nullptr);
-    v[1] = &f1;
-    v[2] = &f2;
-    v[3] = &f3;
-    v[4] = &f4;
-    v[5] = &f5;
+    vector<Floor> v;
+    v.push_back(f1);
+    v.push_back(f2);
+    v.push_back(f3);
+    v.push_back(f4);
+    v.push_back(f5);
     
 }
 
-Gameplay::Gameplay(string file, int x){
+Gameplay::Gameplay(string file): is_hostile{false}, champion{' '}, curr{0}{
+    Floor f1(file,1);
+    Floor f2(file,2);
+    Floor f3(file,3);
+    Floor f4(file,4);
+    Floor f5(file,5);
+    vector<Floor> v;
+    v.push_back(f1);
+    v.push_back(f2);
+    v.push_back(f3);
+    v.push_back(f4);
+    v.push_back(f5);
 }
 
 Cell* Gameplay::newcord(string dir, int x, int y){
     Cell *c;
     if (dir == "no"){
-        c = f.getcell(x - 1, y);
+        c = f.getCell(x - 1, y);
     } else if (dir == "so") {
-        c= f.getcell(x + 1, y);
+        c= f.getCell(x + 1, y);
     } else if (dir == "ea") {
-        c=f.getcell(x, y + 1);
+        c= f.getCell(x, y + 1);
     } else if (dir == "we") {
-        c=f.getcell(x, y - 1);
+        c= f.getCell(x, y - 1);
     } else if (dir == "ne") {
-        c=f.getcell(x - 1, y + 1);
+        c= f.getCell(x - 1, y + 1);
     } else if (dir == "nw") {
-        c=f.getcell(x - 1, y - 1);
+        c= f.getCell(x - 1, y - 1);
     } else if (dir == "se") {
-        c=f.getcell(x + 1, y + 1);
+        c= f.getCell(x + 1, y + 1);
     } else if (dir == "sw"){
-        c=f.getcell(x + 1, y - 1);
+        c= f.getCell(x + 1, y - 1);
     }
     return c;
 }
 
 string Gameplay::move(string dir){
-    f.move_player(dir);//pick up gold
-    f.DisplayMap();
+    v[curr].move_player(dir);//pick up gold
     return "player moves toward" + dir;
 }
 
 string Gameplay::usepotion(string dir){
-    int row = f.playerX();
-    int col = f.playerY();
+    int row = f.playerX;
+    int col = f.playerY;
     Cell *n = newcord(dir, row, col);
     Item *p;
     Character *player;
     
     if(n->display == 'P') {
         p = n->getItem();
-        player = (f.getcell(row, col)).getCharacter;
+        player = (v[curr].getCell(row, col))->getCharacter();
     } else {
         throw "that is not a potion";
     }
     string potion = p->effect(player);
     if(player->getHp() == 0){//player die by using poison
-        
+        return "player die!";
     }
-    f.DisplayMap();
-    return "pc uses " + potion;
+    v[curr].DisplayMap();
+    return "PC uses " + potion;
 }
 
 string Gameplay::attackenemy(string dir){
@@ -88,61 +98,84 @@ string Gameplay::attackenemy(string dir){
     if(c->display == 'H'| c->display =='W'| c->display =='E' | c->display =='O'
        | c->display == 'M'| c->display == 'D' |c->display =='L') {
         nc = c->getCharacter();
-        player = (f.getcell(row, col)).getCharacter;
+        player = (v[curr].getCell(row, col)).getCharacter;
     } else {
-        throw "that is not an enemy";
+        return "That is not an enemy";
     }
-    if(nc->getType() == "elf"){
-        if(player->getType() != "drow"){
-            info = player->attack(nc);
-            info += player->attack(nc);
-        }
+    if(nc->getType() == "merchant"){
+        is_hostile = true;
+        info = player->attack(nc);
     } else {
         info = player->attack(nc);
     }
-    f.move_enemy();//attacked enemy doesn't move!!!!!!!!!!!!!!!!;
-    // what if player is slain
     if(nc->getHp() == 0){//enemy die;
         if(nc->getType() == "human"){
-            c->set_item();//怎么设置成金币item
-        } else {
+            Treasure gold{"human_normal", nullptr};
+            c->rmobject();
+            c->set_item(&gold);
+        } else if(nc->getType() == "dragon"){
+            int len = c->numberofneighbours;
+            for(int i = 0; i < len; ++i){
+                if(c->getNeighbour(i)->is_item){
+                    Item *item = c->getNeighbour(i)->getItem();
+                    if(!(item->is_Potion())){
+                        item->getdragon() = nullptr;
+                    }
+                }
+            }
+        } else if(nc->getType() == "merchant"){
+            Treasure gold{"merchant_hoard", nullptr};
+            c->rmobject();
+            c->set_item(&gold);
+        } else{
             player->addGold(nc->getGold());
+            c->rmobject();
         }
-        c->rmobject();
     }
-    f.DisplayMap();
     return info;
 }
 
-string Gameplay::attackplayer(){
+string Gameplay::attackplayer(bool is_hostile){
     string info;
     Cell *player = f.getCell(f.playerX, f.playerY);
     Character *pc = player->getCharacter();
-    Cell **arr = player->getNeighbour();//get array of pointers
     int len = player->numberofneighbours;
     for (int i = 0; i < len; ++i){
-        if(arr[i]->is_enemy){
-            Character *nc =arr[i]->getCharacter();
+        if(player->getNeighbour(i)->is_enemy){
+            Character *nc = player->getNeighbour(i)->getCharacter();
             if(nc->getType() == "elf"){
                 if(pc->getType() != "drow"){
                     info = nc->attack(pc);
                     info += nc->attack(pc);
                 }
-            } else {
+            } else if (nc->getType() == "merchant"){
+                if(is_hostile){
+                    info = nc->attack(pc);
+                }
+            } else{
                 info = nc->attack(pc);
+            }
+        }else if(player->getNeighbour(i)->is_item){
+            Item *item = player->getNeighbour(i)->getItem();
+            if(!(item->is_Potion())){
+                Character *nc = item->getdragon();
+                if(nc->getType() == "dragon"){
+                    info = nc->attack(pc);
+                }
             }
         }
     }
     if(pc->getHp() == 0){
-        return "die";
+        return "player die!";
     } else {
         return info;
     }
 }
 
-string Gameplay::setplayer(char pc){
-    if(pc == 's' || pc == 'd' || pc == 'v' || pc == 'g' || pc == 't'){
-        f.spawn_player(toupper(pc));
+void Gameplay::setplayer(){
+    if(champion == 's' || champion == 'd' || champion == 'v'
+       || champion == 'g' || champion == 't'){
+        v[curr].spawn_player(toupper(champion));
     } else{
         string s = "bad enter";
         throw s;
@@ -151,11 +184,10 @@ string Gameplay::setplayer(char pc){
 
 int Gameplay::create_game(){
     cout << "choose a champion" << endl;
-    char c;
     while(true){
-        if (cin >> c){
+        if (cin >> champion){
             try{
-                setplayer(c);
+                setplayer();
             } catch(string s){
                 cout << s << endl;
             }
@@ -168,17 +200,37 @@ int Gameplay::create_game(){
     string s;
     string cmd;
     string mode = "normal";
+    int i = 0;
     while(true){
+        string info = "";
         if(cin >> cmd){
-            if( cmd == "no" || cmd == "so" || cmd == "ea" || cmd == "we" || cmd == "ne" ||
+            if(cmd == "no" || cmd == "so" || cmd == "ea" || cmd == "we" || cmd == "ne" ||
                cmd == "nw" || cmd == "se" || cmd == "sw"){
-                move(cmd);
-                if(mode == "normal"){
-                    f.move_enemy();
-                    attackplayer();
-                }else {
-                    attackplayer();
+                info = attackplayer();
+                if(info == "player die!"){
+                    displayall(info);
+                    cin >> i;
+                    return i;
+                } else {
+                    info += "\n" + move_player(cmd);
                 }
+                if(mode == "normal"){
+                    v[curr].move_enemy();
+                }
+                if(v[curr].move_player(cmd) == "true"){
+                    if(curr == 4){
+                        info = "game win!";
+                        displayall(info);
+                        cin >> i;
+                        return i;
+                    } else {
+                        info += " and moves to the next floor!";
+                        displayall(info);
+                        ++curr;
+                        set_player(pc, curr);
+                    }
+                }
+                break;
             } else{
                 istringstream ss{cmd};
                 if(!(ss >> c)){
@@ -189,36 +241,50 @@ int Gameplay::create_game(){
                 switch (cmd[0]) {
                     case 'u':
                         cin >> cmd;
-                        usepotion(cmd);
-                        if(mode == "normal"){
-                            f.move_enemy();
-                            attackplayer();
-                        }else {
-                            attackplayer();
-                        }
-                        break;
-                    case 'a':
-                        cin >> cmd;
-                        attackenemy(cmd);
-                        if(mode == "normal"){
-                            f.move_enemy();
-                            s = attackplayer();
-                        }else {
-                            s = attackplayer();
-                        }
-                        if(s == "die"){
-                            cout << "1-playagain"<< endl << "2-quit" << endl;
-                            int i = 0;
+                        info += attackplayer();
+                        if(info == "player die!"){
+                            displayall(info);
                             cin >> i;
                             return i;
                         }
+                        s = usepotion(cmd);
+                        if(s == "player die!"){
+                            displayall(info);
+                            cin >> i;
+                            return i;
+                        } else {
+                            info += " and " + s;
+                        }
+                        if(mode == "normal"){
+                            v[curr].move_enemy();
+                        }
+                        displayall(info);
+                        break;
+                    case 'a':
+                        cin >> cmd;
+                        info = attackenemy(cmd);
+                        s = attackplayer();
+                        if(s == "player die!"){
+                            displayall(info);
+                            cin >> i;
+                            return i;
+                        } else {
+                            info += " and " + s;
+                        }
+                        if(mode == "normal"){
+                            f.move_enemy();
+                        }
+                        displayall(info);
                         break;
                     case 'f':
                         if(mode == "normal"){
-                            mode = "stop";
+                            mode = "static";
+                            info = "change to normal mode"
                         } else {
                             mode = "normal";
+                            info = "change to static mode"
                         }
+                        displayall(info);
                     case 'r':
                         return 1;
                     case 'q':
@@ -236,6 +302,32 @@ int Gameplay::create_game(){
     }
 }
 
+void Gameplay::displayall(string info){
+    v[curr].DisplayMap;
+    string fullinfo;
+    string pc;
+    switch(champion){
+        case 's':
+            pc = "Shade";
+        case 'd':
+            pc = "Drow";
+        case 'v':
+            pc = "Vampire";
+        case 'g':
+            pc = "Goblin";
+        case 't':
+            pc = "Troll";
+    }
+    Character * player = (v[curr].getPlayer())->getCharacter();
+    cout << "Race: " << pc << " Gold: " << player->getGold() << endl;
+    cout << "Hp: " << player->getHp() <<endl;
+    cout << "Atk: " << player->getAtk() <<endl;
+    cout << "Def: " << player->getDef() <<endl;
+    if(info == "player die!" || info == "game win!"){
+        fullinfo = info + "1-playagain \n2-quit";
+    }
+    cout <<"Action: " << info<< endl;
+}
 
 //consider player enemy movement after every round
 

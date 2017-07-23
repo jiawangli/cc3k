@@ -19,6 +19,10 @@ protected:
     string type;
 public:
     Item(string type);
+    virtual bool is_Potion() = 0;
+    virtual Character *getdragon(){
+        return nullptr;
+    }
     virtual string effect(Character *c) = 0;
     virtual ~Item();
 };
