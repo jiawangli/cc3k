@@ -11,11 +11,12 @@
 #include "cell.h"
 #include "character.h"
 
+
 int main(int argc, const char * argv[]) {
     Floor a;
     a.DisplayMap();
     Floor b;
     b.DisplayMap();
-    //cout << "hello word";
+    cout << "hello word";
     return 0;
 }

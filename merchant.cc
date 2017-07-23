@@ -18,7 +18,6 @@ using namespace std;
 // default ability of merchant: 30 HP, 70 Atk, 5 Def
 Merchant::Merchant(): Enemy(30, 70, 5){
     this->type="merchant";
-    setHostile(false);
 }
 
 string Merchant::attack(Character *pc){

@@ -41,12 +41,13 @@ class Floor {
     //Cell** grid;
     vector<vector<Cell>> grid;
     vector<vector<Cell*>> chamber;
-    vector<Cell*> availableCell;
+//    vector<Cell*> availableCell;
     vector<Enemy> listofenmey;
     vector<Potion> listofpotion;
     vector<Treasure> listoftreasure;
     int playerX;
     int playerY;
+    bool is_drow=false;
 public:
     Floor();
     Floor(std::string,int);
@@ -57,6 +58,9 @@ public:
     void move_enemy();
     void move_player();
     void DisplayMap();
+    void spawn_gold();
+    Cell* getCell(int x, int y);
+    Cell* getPlayer();
 };
 
 #endif /* floor_hpp */

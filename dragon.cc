@@ -18,7 +18,6 @@ using namespace std;
 // default ability of Dragon: 150 HP, 20 Atk, 20 Def
 Dragon::Dragon(): Enemy(150, 20, 20){
     this->type="dragon";
-    setHostile(false);
 }
 
 string Dragon::attack(Character *pc){

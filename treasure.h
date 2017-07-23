@@ -17,6 +17,8 @@ class Character;
 class Treasure: public Item{
     Character *dragon;
 public:
+    Character *getdragon();
+    bool is_Potion();
     Treasure(string type, Character *dragon);
     string effect(Character *c);
     ~Treasure(){}
