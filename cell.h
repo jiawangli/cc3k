@@ -19,10 +19,9 @@ class Cell {
     int x=0;
     int y=0;
     
-    Cell *neighbours[9]; // gai ****
-
-    
 public:
+    
+    vector<Cell*> neighbours;
     Character *_content;
     Item *__content;
     bool is_occupied;

@@ -11,8 +11,8 @@
 using namespace std;
 
 void Cell::setCell(int x, int y, char type) {
-    x = x;
-    y = y;
+    this->x = x;
+    this->y = y;
     display = type;
     _content = nullptr;
     __content = nullptr;
@@ -86,10 +86,10 @@ int Cell::gety() {
     return y;
 }
 
-void Cell::addNeighbour(Cell* neighbour){
-    neighbours[numberofneighbours] = neighbour;
-    numberofneighbours++;
-}
+//void Cell::addNeighbour(Cell* neighbour){
+//    neighbours.push_back(neighbour);
+//    numberofneighbours++;
+//}
 
 Cell* Cell::getNeighbour(int pos){
     return neighbours[pos];
