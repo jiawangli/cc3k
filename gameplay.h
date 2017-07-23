@@ -13,22 +13,24 @@
 #include "floor.h"
 
 class Gameplay{
-    Floor f;
-    vector<Floor*> v;
+    bool is_hostile;
+    char champion;
+    vector<Floor> v;
+    int curr;
     Cell *newcord(string dir, int x, int y);
     string attackplayer(Character *nc, Character *player);
 public:
     Gameplay();
-    Gameplay(string file, int x);
+    Gameplay(string file);
     int create_game();
-    int kk();
     string move(string direction);
     string usepotion(string direction);
     string attackenemy(string direction);
     string attackplayer();
-    string setplayer(char pc);
+    void setplayer();
     string restart();
     string stop_moving();
     string quit();
+    void displayall(string info);
 };
 #endif /* gameplay_h */
